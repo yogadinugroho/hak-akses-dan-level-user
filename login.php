@@ -1,6 +1,7 @@
 <?php 
 
 session_start();
+require 'functions.php';
 
 // cek cookie terlebih dahulu
 // jika masih ada cookie, buat session dan lanjutkan ke index
