@@ -32,7 +32,51 @@ if(isset($_SESSION["login"])) {
 
 if( isset($_POST["login"]) ){
     
-//     logic ketika login dipencet
+    // ambil data dari form post
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // cek apakah username di database sama dengan username 
+    // yang diinputkan oleh user tadi
+
+    $result = mysqli_query($conn, " SELECT * FROM user 
+            WHERE username = '$username' ");
+
+    // cek username
+    // mengecek apakah ada baris yang dikembalikan dari query result
+    // hasilnya berupa id, username dan password
+
+    if( mysqli_num_rows($result) === 1 ) {
+
+        // mengecek passwordnya
+        $row = mysqli_fetch_assoc($result);
+
+        // kebalikan dari hash
+        // param 1 adalah string yang belum diacak
+        // param 2 adalah string yang sudah diacak  
+        if(password_verify($password, $row["password"])) {
+            // set session dan status
+            $_SESSION["login"] = true;
+            $_SESSION["status"] = $row["status"];
+
+            // cek apakah remember me di checklist
+            if( isset($_POST['remember']) ) {
+
+                // buat cookie
+                setcookie('id', $row['id'], time() + 60 );
+                // buat cookie bernama username dan acak nilainya
+                setcookie('key', hash('sha256', $row['username']), time() + 60);
+            }
+
+
+
+            // jika passwordnya sama, arahkan ke dalam sistem
+            header("Location: index.php");
+            exit;
+        }
+    }
+
+    $error = true;
 
 }
 
