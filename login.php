@@ -1,3 +1,42 @@
+<?php 
+
+session_start();
+
+// cek cookie terlebih dahulu
+// jika masih ada cookie, buat session dan lanjutkan ke index
+// jika tidak ada cookie, masuk ke login
+
+if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ) {
+    $id = $_COOKIE['id'];
+    $key = $_COOKIE['key'];
+
+    // ambil username berdasarkan id
+    $result = mysqli_query($conn, "SELECT username FROM user WHERE id = $id");
+
+    // isi dari row ini adalah username saja
+    $row = mysqli_fetch_assoc($result);
+
+    // cek cookie dan username
+    if( $key === hash('sha256', $row['username'])) {
+        $_SESSION['login'] = true;
+    }
+    // jika salah maka akan menuju ke login
+
+}
+
+if(isset($_SESSION["login"])) {
+    header("Location: index.php");
+    exit;
+}
+
+if( isset($_POST["login"]) ){
+    
+//     logic ketika login dipencet
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
