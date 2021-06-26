@@ -1,3 +1,53 @@
+<?php 
+
+session_start();
+
+// jika tidak ada session login, maka pindahkan ke login.php
+if(!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+}
+
+require 'functions.php';
+
+//koneksi ke database
+$conn = mysqli_connect("localhost", "root", "", "phpdasar");
+
+// ambil data di URL 
+$id = $_GET["id"];
+
+// query data mahasiswa berdasarkan id 
+// kita pakai 0 karena hasil dari arraynya berupa array numerik, kita
+// akan langung mengambil ke dalam indeksnya
+$mhs = query(" SELECT * FROM mahasiswa WHERE id = $id")[0];
+
+// ketika tombol dipencet maka lakukan ubah data 
+// cek apakah tombol submit sudah di tekan atau belum
+if( isset($_POST["submit"]) ) {
+
+    // cek apakah data berhasil diubah atau tidak
+    // menggunakn funcion ubah()
+    
+    if( ubah($_POST) > 0 ) {
+        echo "
+            <script>
+                alert('data berhasil diubah!');
+                document.location.href = 'index.php';
+            </script>
+        ";
+    } else {
+        echo "
+            <script>
+            alert('data gagal diubah!');
+            document.location.href = 'index.php';
+            </script>
+        ";
+    }
+
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
