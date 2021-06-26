@@ -1,4 +1,24 @@
+<?php 
 
+    require 'functions.php';
+
+    // ketika tombol register di pencet
+    if( isset($_POST["register"]) ) {
+
+        // jalankan fungsi registrasi
+        if( registrasi($_POST) > 0 ) {
+            echo "
+                <script>
+                    alert('user baru berhasil ditambahkan');
+                </script>
+            ";
+
+        } else {
+            echo mysqli_error($conn);
+        }
+    }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
