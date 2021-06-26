@@ -108,4 +108,55 @@ function hapus($id) {
     return mysqli_affected_rows($conn);
 }
 
+
+function registrasi($data) {
+
+
+    global $conn;
+
+    // agar tidak ada slash dan tidak ada huruf kapital
+    $username = strtolower(stripcslashes($data["username"]));
+
+    // agar user dapat memasukkan password yang ada tanda kutipnya
+    $password = mysqli_real_escape_string($conn, $data["password"]);
+    $password2 = mysqli_real_escape_string($conn, $data["password2"]);
+    $status = mysqli_real_escape_string($conn, $data["status"]);
+
+    // cek apakah username sudah terdatar atau belum
+    $result = mysqli_query( $conn, "SELECT username FROM user 
+                            WHERE username = '$username'");
+
+    if( mysqli_fetch_assoc($result) ) {
+        echo "
+            <script>
+                alert('username sudah terdaftar');
+            </script>
+        ";
+        return false;
+    }
+
+    // mengecek apakah password dan konfirmasi password sama
+    if( $password !== $password2 ) {
+        echo "
+            <Script>
+                alert('konfirmasi password tidak sesuai!');
+            </script>
+        ";
+        // berhentikan langsung fungsinya
+        return false;
+    }
+
+    // enkripsi passwordnya
+    $password = password_hash( $password, PASSWORD_DEFAULT );
+
+    // masukkan data user baru kedalam database 
+    mysqli_query( $conn, " INSERT INTO user VALUES 
+        ('', '$username', '$password', '$status') 
+        ");
+
+    return mysqli_affected_rows($conn);
+
+
+}
+
 ?>
