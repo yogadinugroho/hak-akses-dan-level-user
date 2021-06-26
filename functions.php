@@ -159,4 +159,39 @@ function registrasi($data) {
 
 }
 
+function ubah($data){
+    global $conn;
+    $id = $data["id"];
+    
+    // ambil data dari tiap elemen dalam form
+    $nrp = htmlspecialchars($data["nrp"]);
+    $nama = htmlspecialchars($data["nama"]);
+    $email = htmlspecialchars($data["email"]);
+    $jurusan =htmlspecialchars($data["jurusan"]);
+    $gambarLama =htmlspecialchars($data["gambarLama"]);
+
+    // mengecek apakah user memilih gambar baru atau tidak
+    if( $_FILES['gambar']['error'] === 4 ) {
+        $gambar = $gambarLama;
+    } else {
+        $gambar = upload();
+    }
+
+    // query untuk memasukkan data ke database
+    $query = "UPDATE mahasiswa SET 
+                nrp ='$nrp',
+                nama = '$nama',    
+                email = '$email',
+                jurusan = '$jurusan',
+                gambar = '$gambar'
+                WHERE id = $id
+            ";
+
+    // jalankan querynya
+    mysqli_query($conn, $query);    
+
+    // kembalikan data ketika ada yang berhasil diupdate
+    return mysqli_affected_rows($conn);
+}
+
 ?>
