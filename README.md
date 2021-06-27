@@ -9,4 +9,8 @@ Ketika user sukses login, maka akan ada tiga kemungkinan,
 3. Hak Akses Tidak Penuh ( CREATE )
 
 
-buat sebuah folder dengan nama "img". taruh di luar folder. folder ini untuk menyimpan gambar yang anda upload dan untuk menampilkannya pada halaman awal.
+// buat sebuah folder dengan nama "img". taruh di luar folder. folder ini untuk menyimpan gambar yang anda upload dan untuk menampilkannya pada halaman awal.
+
+// folder js berisi logic untuk livesearch
+
+// folder ajax berisi halaman yang tampil ketika kita sudah mencari data menggunakan livesearch.
