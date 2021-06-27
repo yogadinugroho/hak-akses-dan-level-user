@@ -14,3 +14,7 @@ Ketika user sukses login, maka akan ada tiga kemungkinan,
 // folder js berisi logic untuk livesearch
 
 // folder ajax berisi halaman yang tampil ketika kita sudah mencari data menggunakan livesearch.
+
+// 0 = hak akses penuh CRUD
+// 1 = hak akses hanya create dan edit
+// 2 = hak akses hanya create saja
