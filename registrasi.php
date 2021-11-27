@@ -9,7 +9,7 @@
         if( registrasi($_POST) > 0 ) {
             echo "
                 <script>
-                    alert('user baru berhasil ditambahkan');
+                    alert('user baru berhasil ditambahkan, selamat datang');
                 </script>
             ";
 
