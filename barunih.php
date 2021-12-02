@@ -1,3 +1,13 @@
-ini adalah file percobaan baru yang sudah diedit
 
-saya edit lagi di github 2x
+branch 2
+sa
+sa
+sa
+sa
+sa
+d
+saf
+ds
+fd
+gw
+gw
